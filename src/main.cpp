@@ -52,7 +52,7 @@ int main()
     };
 
     logger->info("Loading Shaders");
-    Shader shader("src/shaders/vertex.glsl", "src/shaders/fragment.glsl");
+    Shader shader("/home/user/dev/3DEngine/src/shaders/vertex.glsl", "/home/user/dev/3DEngine/src/shaders/fragment.glsl");
 
     GLuint VBO;
     glGenBuffers(1, &VBO);
@@ -79,47 +79,4 @@ int main()
 
 
     glfwTerminate();
-}
-
-
-GLuint LoadShader(const char* vertexPath, const char* fragmentPath)
-{
-    std::ifstream vertexFile, fragmentFile;
-    std::stringstream vertexSStream, fragmentSStream;
-
-    vertexFile.open(vertexPath);
-    fragmentFile.open(fragmentPath);
-
-    vertexSStream << vertexFile.rdbuf();
-    fragmentSStream << fragmentFile.rdbuf();
-
-    vertexFile.close();
-    fragmentFile.close();
-
-    std::string vertexStr = vertexSStream.str();
-    std::string fragmentStr = fragmentSStream.str();
-
-    const char* vertexCode = vertexStr.c_str();
-    const char* fragmentCode = fragmentStr.c_str();
-
-    GLuint vertexShader, fragmentShader;
-
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-    glShaderSource(vertexShader, 1, &vertexCode, NULL);
-    glCompileShader(vertexShader);
-
-    glShaderSource(fragmentShader, 1, &fragmentCode, NULL);
-    glCompileShader(fragmentShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    return shaderProgram;
 }
