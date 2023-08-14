@@ -8,6 +8,7 @@
 #include <sstream>
 
 #include "Shader.h"
+#include "VertexObjects.h"
 
 GLuint LoadShader(const char* vertexPath, const char* fragmentPath);
 
@@ -54,10 +55,10 @@ int main()
     logger->info("Loading Shaders");
     Shader shader("/home/user/dev/3DEngine/src/shaders/vertex.glsl", "/home/user/dev/3DEngine/src/shaders/fragment.glsl");
 
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices, GL_STATIC_DRAW);
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
 
     while (!glfwWindowShouldClose(window))
@@ -65,7 +66,7 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.Use();
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
