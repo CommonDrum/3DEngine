@@ -3,9 +3,20 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include <string>
+#include <fstream>
+#include <sstream>
+
+#include "Shader.h"
+
+GLuint LoadShader(const char* vertexPath, const char* fragmentPath);
+
+
 int main()
 {
     auto logger = spdlog::stdout_color_mt("console");
+
+    
 
     
     logger->info("GLFW Version: {}", glfwGetVersionString());
@@ -40,6 +51,9 @@ int main()
     0.5f, -0.5f, 0.0f   // Bottom Right
     };
 
+    logger->info("Loading Shaders");
+    Shader shader("src/shaders/vertex.glsl", "src/shaders/fragment.glsl");
+
     GLuint VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -50,7 +64,7 @@ int main()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Use the shader program, bind VBO, set vertex attribute pointers, and draw
+    shader.Use();
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
@@ -65,4 +79,47 @@ int main()
 
 
     glfwTerminate();
+}
+
+
+GLuint LoadShader(const char* vertexPath, const char* fragmentPath)
+{
+    std::ifstream vertexFile, fragmentFile;
+    std::stringstream vertexSStream, fragmentSStream;
+
+    vertexFile.open(vertexPath);
+    fragmentFile.open(fragmentPath);
+
+    vertexSStream << vertexFile.rdbuf();
+    fragmentSStream << fragmentFile.rdbuf();
+
+    vertexFile.close();
+    fragmentFile.close();
+
+    std::string vertexStr = vertexSStream.str();
+    std::string fragmentStr = fragmentSStream.str();
+
+    const char* vertexCode = vertexStr.c_str();
+    const char* fragmentCode = fragmentStr.c_str();
+
+    GLuint vertexShader, fragmentShader;
+
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+    glShaderSource(vertexShader, 1, &vertexCode, NULL);
+    glCompileShader(vertexShader);
+
+    glShaderSource(fragmentShader, 1, &fragmentCode, NULL);
+    glCompileShader(fragmentShader);
+
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    return shaderProgram;
 }
