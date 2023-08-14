@@ -22,10 +22,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath){
     std::string vertexCode = readShaderFile(vertexPath);
     std::string fragmentCode = readShaderFile(fragmentPath);
     
-    if(vertexCode.empty() || fragmentCode.empty()){
-        spdlog::error("Failed to read shader files.");
-        return;
-    }
 
                 /* Compile shaders */
 
