@@ -8,7 +8,8 @@
 #include <sstream>
 
 #include "Shader.h"
-#include "VertexObjects.h"
+#include "VBO.h"
+
 
 GLuint LoadShader(const char* vertexPath, const char* fragmentPath);
 
