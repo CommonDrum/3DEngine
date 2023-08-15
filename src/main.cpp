@@ -55,18 +55,16 @@ int main()
     logger->info("Loading Shaders");
     Shader shader("/home/user/dev/3DEngine/src/shaders/vertex.glsl", "/home/user/dev/3DEngine/src/shaders/fragment.glsl");
 
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
+
+    VertexBufferObject vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
+
 
     while (!glfwWindowShouldClose(window))
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.Use();
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    vbo.Bind();
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
