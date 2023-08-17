@@ -1,11 +1,6 @@
-
 # intro
-
 This program is....
-
-
 # Setup
-
 ## Linux
 
 For linux you can use the run.sh script to build and compile the code.
@@ -14,5 +9,6 @@ throw an error if something is wrong.
 
 ### run.sh usage:
 ```./run.sh cmake``` Generate the build files. Then build, compile and run the program.
+
 ```./run.sh```  Uses the files from "build" directory to build, compile and run.
-       
+
