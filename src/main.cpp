@@ -7,60 +7,27 @@
 #include <fstream>
 #include <sstream>
 
-#include "Shader.h"
-#include "VBO.h"
-
+#include "Renderer2D.h"
 
 GLuint LoadShader(const char* vertexPath, const char* fragmentPath);
 
 
 int main()
 {
-    auto logger = spdlog::stdout_color_mt("console");
-
-    
-
-    
-    logger->info("GLFW Version: {}", glfwGetVersionString());
-    if (!glfwInit())
-    {
-        logger->error("Failed to initialize GLFW");
-        return -1;
-    }
-
-
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
-
-    logger->info("OpenGL Version: {}", glGetString(GL_VERSION));
-    logger->info("GLEW Version: {}", glewGetString(GLEW_VERSION));
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK)
-    {
-        logger->error("Failed to initialize GLEW");
-        return -1;
-    }
-
+    Renderer2D renderer(640, 480, "Renderer2D");
     GLfloat vertices[] = {
     0.0f,  0.5f, 0.0f,  // Top
    -0.5f, -0.5f, 0.0f,  // Bottom Left
     0.5f, -0.5f, 0.0f   // Bottom Right
     };
 
-    logger->info("Loading Shaders");
     Shader shader("/home/user/dev/3DEngine/src/shaders/vertex.glsl", "/home/user/dev/3DEngine/src/shaders/fragment.glsl");
 
 
     VertexBufferObject vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
 
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(renderer.m_window))
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -71,12 +38,11 @@ int main()
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisableVertexAttribArray(0);
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(renderer.m_window);
     glfwPollEvents();
 }
 
 
 
 
-    glfwTerminate();
 }
