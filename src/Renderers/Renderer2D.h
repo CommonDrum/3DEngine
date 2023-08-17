@@ -1,6 +1,6 @@
 #include "BaseRenderer.h"
-#include "Shader.h"
-#include "VBO.h"
+#include "../Shaders/Shader.h"
+#include "../VertexObjects/VBO.h"
 
 class Renderer2D : public BaseRenderer {
 public:
@@ -14,6 +14,13 @@ public:
     void render() override{
         return;
     }
+
+    //void draw_triangle();
+
+    //void draw_square();
+
+    //void draw_circle();
+
 private:
     //Shader m_shader;
     //VertexBufferObject m_vbo;

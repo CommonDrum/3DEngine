@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "Renderer2D.h"
+#include "Renderers/Renderer2D.h"
 
 GLuint LoadShader(const char* vertexPath, const char* fragmentPath);
 
@@ -21,7 +21,7 @@ int main()
     0.5f, -0.5f, 0.0f   // Bottom Right
     };
 
-    Shader shader("/home/user/dev/3DEngine/src/shaders/vertex.glsl", "/home/user/dev/3DEngine/src/shaders/fragment.glsl");
+    Shader shader("/home/user/dev/3DEngine/src/Shaders/vertex.glsl", "/home/user/dev/3DEngine/src/Shaders/fragment.glsl");
 
 
     VertexBufferObject vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
