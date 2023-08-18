@@ -1,21 +1,21 @@
-#include "VBO.h"
+#include "VertexBuffer.h"
 #include <GL/glew.h>
 
 
-VertexBufferObject::VertexBufferObject(const void* data, unsigned int size, unsigned int usage){ 
+VertexBuffer::VertexBuffer(const void* data, unsigned int size, unsigned int usage){ 
     glGenBuffers(1, &m_RendererID);
     glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
-VertexBufferObject::~VertexBufferObject(){
+VertexBuffer::~VertexBuffer(){
     glDeleteBuffers(1, &m_RendererID);
 }
 
-void VertexBufferObject::Bind(){
+void VertexBuffer::Bind(){
     glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 }
 
-void VertexBufferObject::Unbind(){
+void VertexBuffer::Unbind(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

@@ -1,6 +1,6 @@
 #include "BaseRenderer.h"
 #include "../Shaders/Shader.h"
-#include "../VertexObjects/VBO.h"
+#include "../VertexObjects/VertexBuffer.h"
 
 class Renderer2D : public BaseRenderer {
 public:
