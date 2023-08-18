@@ -4,6 +4,8 @@
 int main()
 {
     Renderer2D renderer(640, 480, "Renderer2D");
+
+    
     GLfloat vertices[] = {
     0.0f,  0.5f, 0.0f,  // Top
    -0.5f, -0.5f, 0.0f,  // Bottom Left
@@ -16,7 +18,7 @@ int main()
 
     Shader shader("/home/user/dev/3DEngine/src/Shaders/vertex.glsl", "/home/user/dev/3DEngine/src/Shaders/fragment.glsl");
 
-    VertexBufferObject vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
+    VertexBuffer vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
 
     while (!glfwWindowShouldClose(renderer.m_window))
