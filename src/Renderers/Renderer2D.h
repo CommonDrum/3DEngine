@@ -1,6 +1,7 @@
 #include "BaseRenderer.h"
 #include "../Shaders/Shader.h"
 #include "../VertexObjects/VertexBuffer.h"
+#include "../../vendor/glm/glm/glm.hpp"
 
 class Renderer2D : public BaseRenderer {
 public:
@@ -15,7 +16,7 @@ public:
         return;
     }
 
-    //void draw_triangle();
+    void draw_triangle(glm::vec2 pos, glm::vec2 size, glm::vec3 color);
 
     //void draw_square();
 
