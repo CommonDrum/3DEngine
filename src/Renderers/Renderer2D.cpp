@@ -1,7 +1,11 @@
 #include "Renderer2D.h"
 
 Renderer2D::Renderer2D(int width, int height, const char* title) : BaseRenderer(width, height, title) {
-   
+
+    VertexBufferLayout layout;
+    layout.push<float>(3);
+
+    m_ibo = new IndexBuffer(nullptr, 0);
 }
 
 
@@ -14,6 +18,11 @@ void Renderer2D::draw_triangle(glm::vec2 pos, glm::vec2 size) {
         pos.x + size.x / 2, pos.y + size.y, 0.0f
     };
 
+    unsigned int indices[] = {
+        0, 1, 2
+    };
+
+    m_ibo->Append(indices, 3);
     VertexBuffer vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
     vbo.Bind();
 

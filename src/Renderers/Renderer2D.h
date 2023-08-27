@@ -2,6 +2,8 @@
 #include "../Shaders/Shader.h"
 #include "../VertexObjects/VertexBuffer.h"
 #include "../../vendor/glm/glm/glm.hpp"
+#include "../VertexObjects/VertexBufferLayout.h"
+#include "../VertexObjects/IndexBuffer.h"
 
 class Renderer2D : public BaseRenderer {
 public:
@@ -15,6 +17,7 @@ public:
     void render() override{
         return;
     }
+
     void draw_triangle(glm::vec2 pos, glm::vec2 size);
     //void draw_triangle(glm::vec2 pos, glm::vec2 size, glm::vec3 color);
 
@@ -25,6 +28,8 @@ public:
     //void draw_circle();
 
 private:
+    IndexBuffer * m_ibo;
+
     //Shader m_shader;
     //VertexBufferObject m_vbo;
 };

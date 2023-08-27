@@ -1,6 +1,6 @@
 #include "IndexBuffer.h"
 #include "VertexBuffer.h"
-#include "VertexLayout.h"
+#include "VertexBufferLayout.h"
 
 
 

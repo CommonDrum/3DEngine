@@ -21,6 +21,9 @@ class VertexBufferLayout
     template<typename T>
     void push(unsigned int count);
 
+    VertexBufferLayout()
+        : m_stride(0) {}
+
     inline const std::vector<VertexBufferElement>& getElements() const { return m_elements; }
     inline unsigned int getStride() const { return m_stride; }
 };
