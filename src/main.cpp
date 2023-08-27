@@ -26,11 +26,7 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.Use();
-    vbo.Bind();
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    glDisableVertexAttribArray(0);
+    renderer.draw_triangle(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
 
     glfwSwapBuffers(renderer.m_window);
     glfwPollEvents();
