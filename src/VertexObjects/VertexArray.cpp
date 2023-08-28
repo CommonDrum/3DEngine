@@ -1,15 +1,37 @@
 #include "VertexArray.h"
 
-
-VertexArray::VertexArray(const VertexBuffer vb, const IndexBuffer ib){
-    m_vboArray.push_back(vb);
-    m_iboArray.push_back(ib);
-    m_layout = VertexBufferLayout();
-    m_layout.push<float>(3);
-
+VertexArray::VertexArray() {
+    glGenVertexArrays(1, &m_RendererID);
 }
 
-VertexArray::VertexArray(){
-    m_layout = VertexBufferLayout();
-    m_layout.push<float>(3);
+VertexArray::~VertexArray() {
+    glDeleteVertexArrays(1, &m_RendererID);
+}
+
+void VertexArray::Bind() const {
+    glBindVertexArray(m_RendererID);
+}
+
+void VertexArray::Unbind() const {
+    glBindVertexArray(0);
+}
+
+void VertexArray::AddVertexBuffer( const VertexBuffer& vb, const VertexBufferLayout& layout) {
+    Bind();
+    vb.Bind();
+
+    const auto& elements = layout.getElements();
+    unsigned int offset = 0;
+
+    for (unsigned int i = 0; i < elements.size(); i++) {
+        const auto& element = elements[i];
+        glEnableVertexAttribArray(i);
+        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset);
+        offset += element.count * sizeof(element.type);
+    }
+}
+
+void VertexArray::SetIndexBuffer(const IndexBuffer& ib) {
+    Bind();
+    ib.Bind();
 }

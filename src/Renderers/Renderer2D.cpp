@@ -9,26 +9,15 @@ Renderer2D::Renderer2D(int width, int height, const char* title) :
 void Renderer2D::draw_triangle(glm::vec2 pos, glm::vec2 size) {
    
     
-    float vertices[] = {
+    m_vertices.insert( m_vertices.end(), {
         pos.x, pos.y, 0.0f,
         pos.x + size.x, pos.y, 0.0f,
         pos.x + size.x / 2, pos.y + size.y, 0.0f
-    };
+    });
 
-    unsigned int indices[] = {
-        0, 1, 2
-    };
+    m_indices.insert(m_indices.end(),{0+m_index_count, 1+m_index_count, 2+m_index_count});
 
-
-
-
-   
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    glDisableVertexAttribArray(0);
+    m_index_count += 3;
     
 }
 
@@ -36,9 +25,18 @@ void Renderer2D::draw_triangle(glm::vec2 pos, glm::vec2 size) {
 void Renderer2D::flush() {
 
   m_shader.Use();
+    VertexBuffer vbo(m_vertices.data(), m_vertices.size() * sizeof(float), GL_STATIC_DRAW);
+    IndexBuffer ibo(m_indices.data(), m_indices.size());
 
+    //create layout
+    VertexBufferLayout layout;
+    layout.push<float>(3);
 
+    m_vao.AddVertexBuffer(vbo, layout);
+    m_vao.SetIndexBuffer(ibo);
 
+    m_vao.Bind();
+    glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer2D::clear() const {

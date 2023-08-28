@@ -6,29 +6,21 @@ int main()
     Renderer2D renderer(640, 480, "Renderer2D");
 
     
-    GLfloat vertices[] = {
-    0.0f,  0.5f, 0.0f,  // Top
-   -0.5f, -0.5f, 0.0f,  // Bottom Left
-    0.5f, -0.5f, 0.0f,   // Bottom Right
     
-    0.0f,  -0.5f, 0.0f,  // Top
-    0.5f, 0.5f, 0.0f,  // Bottom Left
-    -0.5f, 0.5f, 0.0f   // Bottom Right
-    };
-
-    Shader shader("/home/user/dev/3DEngine/src/Shaders/vertex.glsl", "/home/user/dev/3DEngine/src/Shaders/fragment.glsl");
-
-    VertexBuffer vbo(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
 
     while (!glfwWindowShouldClose(renderer.m_window))
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    shader.Use();
+    renderer.clear();
+    
     renderer.draw_triangle(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
+    renderer.draw_triangle(glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, 0.5f));
+
+    renderer.flush();
 
     glfwSwapBuffers(renderer.m_window);
+
+    
     glfwPollEvents();
 }
 

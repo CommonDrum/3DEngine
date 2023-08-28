@@ -25,9 +25,10 @@ public:
     //void draw_circle();
 
 private:
-    //VertexBuffer* m_vbo;
-    //IndexBuffer* m_ibo;
-    // this will be taken care of by vertex array object
+ 
     Shader m_shader;
     VertexArray m_vao;
+    std::vector<float> m_vertices;
+    std::vector<unsigned int> m_indices;
+    unsigned int m_index_count = 0;
 };
