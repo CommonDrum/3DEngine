@@ -19,8 +19,6 @@ int main()
     renderer.flush();
 
     glfwSwapBuffers(renderer.m_window);
-
-    
     glfwPollEvents();
 }
 

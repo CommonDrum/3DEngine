@@ -3,6 +3,7 @@
 #include <vector>
 #include <GL/glew.h>
 
+
 struct VertexBufferElement
 {
     unsigned int type;
@@ -10,6 +11,8 @@ struct VertexBufferElement
     unsigned char normalized;
 };
 
+//Layout exists to tell OpenGL how to interpret the data in the buffer
+//TODO : Add support for other types
 class VertexBufferLayout
 {
     private:
