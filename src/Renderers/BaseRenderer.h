@@ -11,9 +11,12 @@ public:
 
     virtual ~BaseRenderer();
 
-    virtual void render() = 0;  // Pure virtual function
+    virtual void flush() = 0;
+    
+    virtual void clear() const;
 
     GLFWwindow* m_window;
+    
 private:
 
     
