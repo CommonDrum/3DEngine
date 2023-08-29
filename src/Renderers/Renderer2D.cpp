@@ -21,6 +21,26 @@ void Renderer2D::draw_triangle(glm::vec2 pos, glm::vec2 size) {
     
 }
 
+void Renderer2D::draw_square(glm::vec2 pos, glm::vec2 size){
+
+    //TODO: figure out maths to make size acurate
+    m_vertices.insert( m_vertices.end(), {
+        pos.x + size.x/2, pos.y + size.y/2, 0.0f,
+        pos.x + size.x/2, pos.y - size.y/2, 0.0f,
+        pos.x - size.x/2, pos.y - size.y/2, 0.0f,
+        pos.x - size.x/2, pos.y + size.y/2, 0.0f
+    });
+
+    m_indices.insert(m_indices.end(),{
+        0+m_index_count, 1+m_index_count, 3+m_index_count,
+        1+m_index_count, 2+m_index_count, 3+m_index_count
+        });
+
+    
+
+    m_index_count += 6;
+}
+
 
 void Renderer2D::flush() {
 
@@ -37,6 +57,10 @@ void Renderer2D::flush() {
 
     m_vao.Bind();
     glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_INT, nullptr);
+
+    m_vertices.clear();
+    m_indices.clear();
+    m_index_count = 0;
 }
 
 void Renderer2D::clear() const {

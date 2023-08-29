@@ -19,7 +19,7 @@ public:
     //void draw_triangle(glm::vec2 pos, glm::vec2 size, glm::vec3 color);
 
     //void draw_square
-    //void draw_square(glm::vec2 pos, glm::vec2 size, glm::vec3 color);
+    void draw_square(glm::vec2 pos, glm::vec2 size);
 
 
     //void draw_circle();
