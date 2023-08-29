@@ -26,7 +26,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the binary
-./3D-Engine
+./Renderer
 
 # Check if binary execution was successful
 if [ $? -ne 0 ]; then
