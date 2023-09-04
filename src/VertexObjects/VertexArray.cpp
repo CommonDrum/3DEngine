@@ -22,11 +22,12 @@ void VertexArray::AddVertexBuffer( const VertexBuffer& vb, const VertexBufferLay
 
     const auto& elements = layout.getElements();
     unsigned int offset = 0;
+    
 
     for (unsigned int i = 0; i < elements.size(); i++) {
         const auto& element = elements[i];
         glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset);
+        glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), reinterpret_cast<const void*>(static_cast<uintptr_t>(offset)));
         offset += element.count * sizeof(element.type);
     }
 }

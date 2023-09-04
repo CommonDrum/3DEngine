@@ -19,5 +19,12 @@ find_package(glfw3 REQUIRED)
 add_subdirectory(vendor/glm)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
+if(LINUX)
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW glfw spdlog::spdlog glm) 
+endif(LINUX)
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW glfw spdlog::spdlog glm)
+if(APPLE)
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW::GLEW glfw spdlog::spdlog glm "-framework OpenGL")
+endif(APPLE)
+
+

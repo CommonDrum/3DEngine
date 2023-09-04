@@ -2,7 +2,8 @@
 
 Renderer2D::Renderer2D(int width, int height, const char* title) : 
     BaseRenderer(width, height, title),
-    m_shader("/home/user/dev/3DEngine/src/Shaders/vertex.glsl", "/home/user/dev/3DEngine/src/Shaders/fragment.glsl"){
+    //TODO: make shader path relative
+    m_shader("/Users/commondrum/Documents/GitHub/Renderer/src/Shaders/vertex.glsl", "/Users/commondrum/Documents/GitHub/Renderer/src/Shaders/fragment.glsl"){
 }
 
 
