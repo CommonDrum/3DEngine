@@ -16,6 +16,7 @@ find_package(GLEW REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(glfw3 REQUIRED)
 
+find_package(Vulkan REQUIRED)
 
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/assimp)
@@ -26,7 +27,7 @@ target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW glfw spdlog::spdl
 endif(LINUX)
 
 if(APPLE)
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW::GLEW glfw spdlog::spdlog glm "-framework OpenGL" assimp)
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} GLEW::GLEW glfw spdlog::spdlog glm "-framework OpenGL" assimp vulkan::vulkan)
 endif(APPLE)
 
 
